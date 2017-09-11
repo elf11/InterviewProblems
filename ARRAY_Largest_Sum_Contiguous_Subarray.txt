@@ -1,0 +1,78 @@
+// find the sum of contiguous subarray within a one dimensional array
+// of numbers which has the largest sum
+
+// Kadane's algorithm - Dynamic Programming = simple idea is to look for all positive
+// contiguous segments of the array (max_ending_here is used for this)
+// And keep track of maximum sum contiguous segment among all
+// positive segments (max_so_far is used for this). Each time
+// we get a positive sum compare it with max_so_far and update
+// max_so_far if the sum is greater than max_so_far
+
+class Kadane {
+
+	static int maxSubarraySum(int arr[]) {
+		int max_so_far = Integer.MIN_VALUE;
+		int max_ending_here = 0;
+		
+		for (int i = 0; i < arr.length; i++) {
+			max_ending_here = max_ending_here + arr[i];
+		
+			if (max_ending_here < 0) {
+				max_ending_here = 0;
+			}
+			
+			if (max_so_far < max_ending_here) {
+				max_so_far = max_ending_here;
+			}
+		
+		}
+		
+		return max_so_far;
+	
+	}
+	
+	// this algorithm can be optimized if we compare max_so_far with max_ending_here
+	// only when max_ending_here is positive
+	static int maxSubarraySumOpt(int arr[]) {
+		int max_so_far = Integer.MIN_VALUE;
+		int max_ending_here = 0;
+		
+		for (int i = 0; i < arr.length; i++) {
+			max_ending_here = max_ending_here + arr[i];
+		
+			if (max_ending_here < 0) {
+				max_ending_here = 0;
+			}
+			
+			else if (max_so_far < max_ending_here) {
+				max_so_far = max_ending_here;
+			}
+		
+		}
+		
+		return max_so_far;
+	
+	}
+	
+	
+	// the following implementation handles the case when all the numbers in the array 
+	// are negative
+	static in maxSubarraySumAllNegative(int arr[]) {
+		int max_so_far = arr[0];
+		int curr_max = arr[0];
+		
+		for (int i = 0; i < arr.length; i++) {
+			curr_max = Math.MAX(a[i], curr_max + a[i]);
+			max_so_far = Math.MAX(max_so_far, curr_max);	
+		}
+		
+		return max_so_far;
+	}
+
+	public static void main (String[] args)
+    {
+        int [] a = {-2, -3, 4, -1, -2, 1, 5, -3};
+        System.out.println("Maximum contiguous sum is " +
+                                       maxSubarraySum(a));
+    }
+}

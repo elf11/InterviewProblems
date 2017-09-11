@@ -1,0 +1,66 @@
+// write a function to rotate an array of size n by d elements
+
+class RotateArray {
+
+	static int gcd(int a, int b) {
+		if (b == 0)
+			return a;
+		else
+			return gcd(a, a % b);
+	
+	}
+	
+	
+	static void leftRotate(int arr[], int d, int n) {
+	
+		int groups = gcd(n, d);
+		int temp, j, k;
+		
+		for (int i = 0; i < groups; i++) {
+		
+			temp = 	arr[i];
+			j = i;
+			while  (1 != 0) {
+				
+				k = j + d;
+				
+				if (k >= n) {
+					k = k - n;
+				}
+				
+				//if this happens it means that we are again at the
+				//beginning of the array so we can stop
+				if (k == i) {
+					break;
+				}
+				
+				arr[j] = arr[k];
+				j = k;
+					
+			}		
+			
+			// put the temp element in place (at the end of the array)
+			arr[j] = temp;
+		}
+	
+	}
+	
+	static void printArray(int arr[], int n) {
+	
+		for (int i = 0; i < n; i++) {
+			System.out.println(arr[i] + " ");
+		}
+	
+	}
+	
+	public static void main(String[] args) {
+		int arr[] = {1,2,3,4,5,6,7};
+		leftRotate(arr, 2, arr.length);
+		printArray(arr, arr.length);
+	}
+	
+	
+
+
+
+}
