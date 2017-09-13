@@ -1,0 +1,37 @@
+// maximum sum such that no 2 elements are adjacent
+// time complexity O(n)
+
+class MaximumSum {
+
+	static int FindMaxSum(int arr[], int n) {
+	
+		int incl = arr[0];
+		int excl = 0;
+		int excl_new;
+		int i;
+		
+		for (i = 1; i < n; i++) {
+		
+			// current max excluding element at i
+			excl_new = (incl > excl) ? incl : excl;
+			
+			// current max including element at i
+			incl = excl + arr[i];
+			excl = excl_new;
+		
+		}
+		
+		return ((incl > excl) ? incl : excl);
+	
+	}
+	
+	public static void main(String[] args) {
+	
+		int arr[] = {5,5,10,100,10,5};
+		System.out.println(FindMaxSum(arr, arr.length));
+	
+	
+	}
+
+
+}
